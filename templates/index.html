@@ -63,12 +63,12 @@
 
 
         // Draw the overall stats
-        job_slots_table = $('<table></table>');
+        job_slots_table = $('<table><\/table>');
         job_slots_table.addClass('table');
-        job_slots_table.append("<tr><th>Jobs</th><th>Running</th><th>Pending</th><th>Held</th>")
-        job_slots_table.append("<tr><td>" + data.jobs.jobs + "</td><td>" + data.jobs.running + "</td><td>" + data.jobs.pending + "</td><td>" + data.jobs.held + "</td></tr>");
+        job_slots_table.append("<tr><th>Jobs<\/th><th>Running<\/th><th>Pending<\/th><th>Held<\/th>")
+        job_slots_table.append("<tr><td>" + data.jobs.jobs + "<\/td><td>" + data.jobs.running + "<\/td><td>" + data.jobs.pending + "<\/td><td>" + data.jobs.held + "<\/td><\/tr>");
         $("#job_slots_table").append(job_slots_table);
-        
+
         }
         //]]>
         </script>
@@ -95,8 +95,7 @@
                     <h2>
                         Job Slots
                     </h2>
-                    <div id="job_slots_table">
-                    </div>
+                    <div id="job_slots_table"></div>
                 </div>
             </div>
             <div class="row-fluid">
@@ -104,19 +103,17 @@
                     <h2>
                         Schedulers
                     </h2>
-                    <div id="schedd_table">
+                    <div id="schedd_table"></div>
                 </div>
             </div>
-
             <div class="row-fluid">
                 <div id="groups" class="span12">
                     <h2>
                         Groups
                     </h2>
-                    <div id='users_table'></div>
+                    <div id="users_table"></div>
                 </div>
             </div>
-
         </div><!-- container -->
     </body>
 </html>
