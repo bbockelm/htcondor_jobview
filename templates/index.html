@@ -25,9 +25,9 @@
 
         });
 
-
+        var cluster_stats;
         function gotcluster(data) {
-            var cluster_stats;
+            
             cluster_stats.totalcpus=data.total;
             cluster_stats.free=data.free;
             
