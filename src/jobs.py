@@ -76,8 +76,12 @@ def summarize_jobs(cp):
             fqan = '<unknown>'
             if 'x509UserProxyFirstFQAN' in job: fqan = job['x509UserProxyFirstFQAN']
 
-            user_group = (user_name, agroup_name, dn, fqan)
+            user_group = str([user_name , agroup_name, dn, fqan])
             user = user_tables.setdefault(user_group, dict(group_default_stats))
+            user['Owner'] = user_name
+            user['AccountingGroup'] = agroup_name
+            user['X509UserProxySubject'] = dn
+            user['x509UserProxyFirstFQAN'] = fqan
 
             jobs_tables['jobs'] += 1
             agroup['jobs'] += 1
