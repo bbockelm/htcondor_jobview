@@ -31,7 +31,8 @@
         table_data.addColumn('number', 'CPU Eff (%)');
         table_data.addColumn('string', 'DN');
         
-        for (user in data.user) {
+        for (user_key in data.user) {
+            user = data.user[user_key];
             table_data.addRow(user.Owner, user.AccountingGroup, user.Jobs, user.Running, user.Pending, user.Held, user.cpu_eff, user.X509UserProxySubject);
         }
         var table = new google.visualization.Table(document.getElementById('users_table'));
