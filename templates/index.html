@@ -31,8 +31,11 @@
         data.addColumn('number', 'CPU Eff (%)');
         data.addColumn('string', 'DN');
         
-        //for job in data.jobs
-        
+        for (user in data.user) {
+            data.addRow(user.Owner, user.AccountingGroup, user.Jobs, user.Running, user.Pending, user.Held, user.cpu_eff, user.X509UserProxySubject);
+        }
+        var table = new google.visualization.Table(document.getElementById('users_table'));
+        table.draw(data);
         
     }
     </script>
@@ -62,12 +65,7 @@
 
     <div id="groups">
     <h2>Groups</h2>
-    <table>
-    <tr><td>Group</td><td>Jobs</td><td>Running</td><td>Pending</td><td>Held</td><td>CPU Eff(%)</td><td>Jobs(Eff&lt;10%)</td></tr>
-    <tr py:for="name, group in groups.items()">
-      <td>$name</td><td>${group.jobs}</td><td>${group.running}</td><td>${group.pending}</td><td>${group.held}</td><td>${int(round(100*group['cpu_eff']))}</td><td>${group.low_eff}</td>
-    </tr>
-    </table>
+    <div id='users_table'> </div>
     </div>
 
     <div id="schedd">

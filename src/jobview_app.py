@@ -73,9 +73,14 @@ def index(environ, start_response):
     
 
 def not_found(environ, start_response):
-    pass
+    status = '404 Not Found'
+    headers = [('Content-type', 'text/html'),
+              ('Cache-Control', 'max-age=60, public')]
+    return [ "Resource not found"]
+    
 
 
+# Add url's here for new pages
 urls = [
     (r'^$', index),
     (r'jobs/?$', jobs),
