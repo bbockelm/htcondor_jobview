@@ -36,7 +36,7 @@
             table_data.addRow([ user.Owner, user.AccountingGroup, user.jobs, user.running, user.pending, user.held, Math.round(user.cpu_eff*100)/100, user.X509UserProxySubject ]);
         }
         var table = new google.visualization.Table(document.getElementById('users_table'));
-        table.draw(table_data);
+        table.draw(table_data, {sortColumn=3, sortAscending=false});
         
     }
     </script>
