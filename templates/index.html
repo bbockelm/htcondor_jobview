@@ -65,7 +65,7 @@
         table.draw(table_data, {sortColumn: 3, sortAscending: false});
 
         // Now draw the graph
-        var group_graph_data = google.visualization.DataTable();
+        var group_graph_data = new google.visualization.DataTable();
         group_graph_data.addColumn('string', 'Group');
         group_graph_data.addColumn('number', 'Running Jobs');
 
