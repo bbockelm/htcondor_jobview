@@ -32,7 +32,7 @@
         table_data.addColumn('string', 'DN');
         
         for (user in data.user) {
-            data.addRow(user.Owner, user.AccountingGroup, user.Jobs, user.Running, user.Pending, user.Held, user.cpu_eff, user.X509UserProxySubject);
+            table_data.addRow(user.Owner, user.AccountingGroup, user.Jobs, user.Running, user.Pending, user.Held, user.cpu_eff, user.X509UserProxySubject);
         }
         var table = new google.visualization.Table(document.getElementById('users_table'));
         table.draw(table_data);
