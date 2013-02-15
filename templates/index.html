@@ -33,7 +33,7 @@
         
         for (user_key in data.user) {
             user = data.user[user_key];
-            table_data.addRow(user.Owner, user.AccountingGroup, user.jobs, user.running, user.pending, user.held, user.cpu_eff, user.X509UserProxySubject);
+            table_data.addRow([ user.Owner, user.AccountingGroup, user.jobs, user.running, user.pending, user.held, user.cpu_eff, user.X509UserProxySubject ]);
         }
         var table = new google.visualization.Table(document.getElementById('users_table'));
         table.draw(table_data);
