@@ -10,7 +10,7 @@ def get_cpu_slots(cp):
     total_cpus, free = 0, 0
     for ad in coll.query(htcondor.AdTypes.Startd, 'True', ['Cpus','TotalCpus']):
         try:
-            total_cpus += ad['TotalCpus']
+            total_cpus += ad['Cpus']
         except AttributeError:
             pass
         try:
