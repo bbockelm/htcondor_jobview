@@ -90,7 +90,7 @@
             job_slots_table = $('<table><\/table>');
             job_slots_table.addClass('table');
             job_slots_table.append("<tr><th>CPUs<\/th><th>Free<\/th><th>Jobs<\/th><th>Running<\/th><th>Pending<\/th><th>Held<\/th>")
-            job_slots_table.append("<tr><td>" + cluster_stats.totalcpus + "<\/td><td>" + cluster_stats.free + "<\/td><td>" + data.jobs.jobs + "<\/td><td>" + data.jobs.running + "<\/td><td>" + data.jobs.pending + "<\/td><td>" + data.jobs.held + "<\/td><\/tr>");
+            job_slots_table.append("<tr><td>" + cluster_stats.totalcpus + "<\/td><td>" + cluster_stats.free + "<\/td><td>" + cluster_stats.jobs + "<\/td><td>" + cluster_stats.running + "<\/td><td>" + cluster_stats.pending + "<\/td><td>" + cluster_stats.held + "<\/td><\/tr>");
             $("#job_slots_table").append(job_slots_table);
             
         }
