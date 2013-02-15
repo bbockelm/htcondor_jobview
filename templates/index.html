@@ -84,7 +84,7 @@
 
         function drawClusterStats(){
             // There should be 6 elements in cluster_stats, exit if not 6
-            if (cluster_stats.length != 6) return;
+            if (cluster_stats.jobs != null && cluster_stats.running != null && cluster_stats.pending != null && cluster_stats.held != null && cluster_stats.totalcpus != null && cluster_stats.free != null) return;
             
             // Draw the overall stats
             job_slots_table = $('<table><\/table>');
