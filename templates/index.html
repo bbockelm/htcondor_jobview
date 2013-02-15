@@ -21,21 +21,21 @@
         // data is a json object
         
         // Draw the jobs table
-        var data = new google.visualization.DataTable();
-        data.addColumn('string', 'User');
-        data.addColumn('string', 'Group');
-        data.addColumn('number', 'Jobs');
-        data.addColumn('number', 'Running');
-        data.addColumn('number', 'Pending');
-        data.addColumn('number', 'Held');
-        data.addColumn('number', 'CPU Eff (%)');
-        data.addColumn('string', 'DN');
+        var table_data = new google.visualization.DataTable();
+        table_data.addColumn('string', 'User');
+        table_data.addColumn('string', 'Group');
+        table_data.addColumn('number', 'Jobs');
+        table_data.addColumn('number', 'Running');
+        table_data.addColumn('number', 'Pending');
+        table_data.addColumn('number', 'Held');
+        table_data.addColumn('number', 'CPU Eff (%)');
+        table_data.addColumn('string', 'DN');
         
         for (user in data.user) {
             data.addRow(user.Owner, user.AccountingGroup, user.Jobs, user.Running, user.Pending, user.Held, user.cpu_eff, user.X509UserProxySubject);
         }
         var table = new google.visualization.Table(document.getElementById('users_table'));
-        table.draw(data);
+        table.draw(table_data);
         
     }
     </script>
