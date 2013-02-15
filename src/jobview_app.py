@@ -76,6 +76,7 @@ def not_found(environ, start_response):
     status = '404 Not Found'
     headers = [('Content-type', 'text/html'),
               ('Cache-Control', 'max-age=60, public')]
+    start_response(status, headers)
     return [ "Resource not found"]
     
 
