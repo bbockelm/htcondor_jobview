@@ -51,7 +51,8 @@
     <h2>CPU Slots</h2>
     <table>
     <tr><td>Available</td><td>Occupied</td><td>Free</td></tr>
-    <tr><td>${cpu_slots.total}</td><td>${cpu_slots['total'] - cpu_slots['free']}</td><td>${cpu_slots.free}</td></tr>
+<!--    <tr><td>${cpu_slots.total}</td><td>${cpu_slots['total'] - cpu_slots['free']}</td><td>${cpu_slots.free}</td></tr>
+-->
     </table>
     </div>
 
@@ -59,7 +60,7 @@
     <h2>Job Slots</h2>
     <table>
     <tr><td>Jobs</td><td>Running</td><td>Pending</td><td>Held</td><td>CPU Eff(%)</td><td>Jobs(Eff&lt;10%)</td></tr>
-    <tr><td>${jobs.jobs}</td><td>${jobs.running}</td><td>${jobs.pending}</td><td>${jobs.held}</td><td>${int(round(100*jobs['cpu_eff']))}</td><td>${jobs.low_eff}</td></tr>
+    <!--<tr><td>${jobs.jobs}</td><td>${jobs.running}</td><td>${jobs.pending}</td><td>${jobs.held}</td><td>${int(round(100*jobs['cpu_eff']))}</td><td>${jobs.low_eff}</td></tr> -->
     </table>
     </div>
 
@@ -73,7 +74,7 @@
     <table>
     <tr><td>Scheduler</td><td>Jobs</td><td>Running</td><td>Pending</td><td>Held</td><td>CPU Eff(%)</td><td>Jobs(Eff&lt;10%)</td></tr>
     <tr py:for="name, group in schedds.items()">
-      <td>$name</td><td>${group.jobs}</td><td>${group.running}</td><td>${group.pending}</td><td>${group.held}</td><td>${int(round(100*group['cpu_eff']))}</td><td>${group.low_eff}</td>
+      <!-- <td>$name</td><td>${group.jobs}</td><td>${group.running}</td><td>${group.pending}</td><td>${group.held}</td><td>${int(round(100*group['cpu_eff']))}</td><td>${group.low_eff}</td> -->
     </tr>
     </table>
     </div>
