@@ -37,6 +37,7 @@
 
         function gotjobs(data){
         // data is a json object
+        var group_data = new Array();
 
         // Draw the jobs table
         var table_data = new google.visualization.DataTable();
@@ -150,8 +151,7 @@
                     </div>
                 </div>
                 <div class="span6">
-                    <div id="group_chart_div">
-                    </div>
+                    <div id="group_chart_div"></div>
                 </div>
             </div>
             <div class="row-fluid">
