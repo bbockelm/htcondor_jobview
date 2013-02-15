@@ -28,8 +28,9 @@
         var cluster_stats;
         function gotcluster(data) {
             
-            cluster_stats.totalcpus=data.total;
-            cluster_stats.free=data.free;
+            cluster_stats['totalcpus'] = data.total;
+            cluster_stats['free'] = data.free;
+            drawClusterStats();
             
             
         }
@@ -70,19 +71,29 @@
         }
         var schedd_table = new google.visualization.Table(document.getElementById('schedd_table'));
         schedd_table.draw(schedd_table_data, {sortColumn: 2, sortAscending: false});
+        
+        cluster_stats['jobs'] = data.jobs.jobs;
+        cluster_stats['running'] = data.jobs.running;
+        cluster_stats['pending'] = data.jobs.pending;
+        cluster_stats['held'] = data.jobs.held;
+        drawClusterStats();
 
-
-        // Draw the overall stats
-        job_slots_table = $('<table><\/table>');
-        job_slots_table.addClass('table');
-        job_slots_table.append("<tr><th>CPUs<\/th><th>Free<\/th><th>Jobs<\/th><th>Running<\/th><th>Pending<\/th><th>Held<\/th>")
-        job_slots_table.append("<tr><td>" + cluster_stats.totalcpus + "<\/td><td>" + cluster_stats.free + "<\/td><td>" + data.jobs.jobs + "<\/td><td>" + data.jobs.running + "<\/td><td>" + data.jobs.pending + "<\/td><td>" + data.jobs.held + "<\/td><\/tr>");
-        $("#job_slots_table").append(job_slots_table);
 
         }
 
 
-
+        function drawClusterStats(){
+            // There should be 6 elements in cluster_stats, exit if not 6
+            if (cluster_stats.length != 6) return;
+            
+            // Draw the overall stats
+            job_slots_table = $('<table><\/table>');
+            job_slots_table.addClass('table');
+            job_slots_table.append("<tr><th>CPUs<\/th><th>Free<\/th><th>Jobs<\/th><th>Running<\/th><th>Pending<\/th><th>Held<\/th>")
+            job_slots_table.append("<tr><td>" + cluster_stats.totalcpus + "<\/td><td>" + cluster_stats.free + "<\/td><td>" + data.jobs.jobs + "<\/td><td>" + data.jobs.running + "<\/td><td>" + data.jobs.pending + "<\/td><td>" + data.jobs.held + "<\/td><\/tr>");
+            $("#job_slots_table").append(job_slots_table);
+            
+        }
 
 
         //]]>
