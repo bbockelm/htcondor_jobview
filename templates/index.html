@@ -55,8 +55,8 @@
         schedd_table_data.addColumn('number', 'Held');
 
         for (schedd_key in data.schedd) {
-            schedd = data.user[schedd_key];
-            table_data.addRow([ schedd_key, schedd.jobs, schedd.running, schedd.pending, schedd.held ]);
+            schedd = data.schedd[schedd_key];
+            schedd_table_data.addRow([ schedd_key, schedd.jobs, schedd.running, schedd.pending, schedd.held ]);
         }
         var schedd_table = new google.visualization.Table(document.getElementById('schedd_table'));
         schedd_table.draw(schedd_table_data, {sortColumn: 2, sortAscending: false});
