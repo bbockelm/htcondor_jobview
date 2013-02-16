@@ -8,7 +8,7 @@ if os.path.exists("src"):
 
 from wsgiref.simple_server import make_server
 
-from jobview_app import application
+from htcondor_jobview.jobview_app import application
 
 httpd = make_server('', 8000, application)
 

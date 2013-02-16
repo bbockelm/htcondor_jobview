@@ -20,7 +20,10 @@ def check_initialized(environ):
     global loader
     global cp
     if not initialized:
-        loader = TemplateLoader('templates', auto_reload=True)
+        if 'jobview.templates' in environ:
+            loader = TemplateLoader(environ['jobview.templates'], auto_reload=True)
+        else:
+            loader = TemplateLoader('/usr/share/htcondor-jobview/templates', auto_reload=True)
         tmp_cp = ConfigParser.ConfigParser()
         if 'jobview.config' in environ:
             tmp_cp.read(environ['jobview.config'])
@@ -28,8 +31,6 @@ def check_initialized(environ):
             tmp_cp.read('/etc/jobview.conf')
         cp = tmp_cp
         initialized = True
-
-
 
 
 def jobs(environ, start_response):
@@ -90,7 +91,6 @@ urls = [
 
 def application(environ, start_response):
     check_initialized(environ)
-
 
     path = environ.get('PATH_INFO', '').lstrip('/')
     for regex, callback in urls:

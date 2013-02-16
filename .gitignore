@@ -1,1 +1,3 @@
-src/*.pyc
+src/htcondor_jobview/*.pyc
+MANIFEST
+dist

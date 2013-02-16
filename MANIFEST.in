@@ -1,0 +1,3 @@
+include packaging/jobview.conf
+include packaging/htcondor-jobview.wsgi
+include templates/index.html
