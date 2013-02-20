@@ -63,7 +63,7 @@
 
         for (user_key in data.user) {
             user = data.user[user_key];
-            table_data.addRow([ user.Owner, user.AccountingGroup, user.jobs, user.running, user.pending, user.held, Math.round(user.cpu_eff*100)/100, user.X509UserProxySubject ]);
+            table_data.addRow([ user.Owner, user.AccountingGroup, user.jobs, user.running, user.pending, user.held, (Math.round(user.cpu_eff*10000)/10000)*100, user.X509UserProxySubject ]);
             
             // Now calculate the per group data
             if (group_data.indexOf(user.AccountingGroup) == -1) {
