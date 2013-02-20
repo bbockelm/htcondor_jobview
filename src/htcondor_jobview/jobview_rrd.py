@@ -106,7 +106,7 @@ def graph_rrd(cp, plot, interval):
             "--imgformat", "PNG",
             "--width", "400",
             "--start", "-1%s" % rrd_interval,
-            "--vertical-label", "Jobs",
+            "--vertical-label", "Cores",
             "--lower-limit", "0",
             "DEF:total=%s:total:AVERAGE" % path,
             "DEF:free=%s:free:AVERAGE" % path,
