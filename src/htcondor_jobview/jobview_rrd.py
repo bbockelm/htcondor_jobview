@@ -76,7 +76,7 @@ def graph_rrd(cp, plot, interval):
 
         rrdtool.graph(pngpath,
             "--imgformat", "PNG",
-            "--width", "480",
+            "--width", "400",
             "--start", "-1%s" % rrd_interval,
             "--vertical-label", "Jobs",
             "--lower-limit", "0",
@@ -104,7 +104,7 @@ def graph_rrd(cp, plot, interval):
 
         rrdtool.graph(pngpath,
             "--imgformat", "PNG",
-            "--width", "480",
+            "--width", "400",
             "--start", "-1%s" % rrd_interval,
             "--vertical-label", "Jobs",
             "--lower-limit", "0",
