@@ -59,6 +59,8 @@ def graph_rrd(cp, plot, interval):
         rrd_interval = "h"
     elif interval == "daily":
         rrd_interval = "d"
+    elif interval == "weekly":
+        rrd_interval = "w"
     elif interval == "monthly":
         rrd_interval = "m"
     elif interval == "yearly":

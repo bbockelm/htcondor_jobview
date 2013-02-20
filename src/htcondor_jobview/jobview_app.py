@@ -9,7 +9,7 @@ from genshi.template import TemplateLoader
 
 from jobs import summarize_jobs
 from cluster_summary import get_cpu_slots
-
+import jobview_rrd
 
 initialized = False
 loader = TemplateLoader('templates', auto_reload=True)
@@ -34,7 +34,6 @@ def check_initialized(environ):
 
 
 def jobs(environ, start_response):
-    global cp
     status = '200 OK'
     headers = [('Content-type', 'application/json'),
               ('Cache-Control', 'max-age=60, public')]
@@ -45,7 +44,20 @@ def jobs(environ, start_response):
 
     return [ json.dumps(global_dict) ]
     
-    
+jobs_graph_re = re.compile(r'^/+jobs_graph/?([a-zA-Z]+)?/?$')
+def jobs_graph(environ, start_response):
+    status = '200 OK'
+    headers = [('Content-type', 'image/png'),
+               ('Cache-Control', 'max-age=60, public')]
+    start_response(status, headers)
+
+    path = environ.get('PATH_INFO', '')
+    m = jobs_graph_re.match(path)
+    interval = "daily"
+    if m.groups()[0]: interval=m.groups()[0]
+
+    return [ jobview_rrd.graph_rrd(cp, "jobs", interval) ]
+
 
 def cluster(environ, start_response):
     global cp
@@ -59,6 +71,21 @@ def cluster(environ, start_response):
     
     return [ json.dumps(cpu_slots) ]
     
+
+cluster_graph_re = re.compile(r'^/+cluster_graph/?([a-zA-Z]+)?/?$')
+def cluster_graph(environ, start_response):
+    status = '200 OK'
+    headers = [('Content-type', 'image/png'),
+               ('Cache-Control', 'max-age=60, public')]
+    start_response(status, headers)
+
+    path = environ.get('PATH_INFO', '')
+    m = cluster_graph_re.match(path)
+    interval = "daily"
+    if m.groups()[0]: interval=m.groups()[0]
+
+    return [ jobview_rrd.graph_rrd(cp, "cluster", interval) ]
+
 
 def index(environ, start_response):
     status = '200 OK' # HTTP Status
@@ -84,9 +111,11 @@ def not_found(environ, start_response):
 
 # Add url's here for new pages
 urls = [
-    (r'^$', index),
-    (r'jobs/?$', jobs),
-    (r'cluster/?$', cluster)
+    (re.compile(r'^$'), index),
+    (re.compile(r'^jobs/?$'), jobs),
+    (re.compile(r'^cluster/?$'), cluster),
+    (re.compile(r'^jobs_graph/?'), jobs_graph),
+    (re.compile(r'^cluster_graph/?'), cluster_graph),
 ]
 
 def application(environ, start_response):
@@ -94,8 +123,8 @@ def application(environ, start_response):
 
     path = environ.get('PATH_INFO', '').lstrip('/')
     for regex, callback in urls:
-        match = re.search(regex, path)
-        if match is not None:
+        match = regex.match(path)
+        if match:
             environ['jobview.url_args'] = match.groups()
             return callback(environ, start_response)
     return not_found(environ, start_response)
