@@ -68,16 +68,20 @@ def graph_rrd(cp, plot, interval):
     else:
         raise ValueError("Unknown interval: %s" % interval)
 
-    fd, path = tempfile.mkstemp(".png")
+    fd, pngpath = tempfile.mkstemp(".png")
     if plot == "jobs":
-        rrdtool.graph(path,
+        path = get_rrd_name(cp, plot)
+        if not os.path.exists(path):
+            create_rrd(cp, "jobs")
+
+        rrdtool.graph(pngpath,
             "--imgformat", "PNG",
             "--width", "480",
             "--start", "-1%s" % rrd_interval,
             "--vertical-label", "Jobs",
             "--lower-limit", "0",
-            "DEF:running=%s:running:AVERAGE" % get_rrd_name(cp, plot),
-            "DEF:pending=%s:pending:AVERAGE" % get_rrd_name(cp, plot),
+            "DEF:running=%s:running:AVERAGE" % path,
+            "DEF:pending=%s:pending:AVERAGE" % path,
             "LINE1:running#0000FF:Running",
             "LINE2:pending#00FF00:Pending",
             "COMMENT:%s" % cp.get("jobview", "site_name"),
@@ -94,14 +98,18 @@ def graph_rrd(cp, plot, interval):
             "GPRINT:pending:LAST:%-6.0lf\\n",
             )
     elif plot == "cluster":
-        rrdtool.graph(path,
+        path = get_rrd_name(cp, plot)
+        if not os.path.exists(path):
+            create_rrd(cp, "cluster")
+
+        rrdtool.graph(pngpath,
             "--imgformat", "PNG",
             "--width", "480",
             "--start", "-1%s" % rrd_interval,
             "--vertical-label", "Jobs",
             "--lower-limit", "0",
-            "DEF:total=%s:total:AVERAGE" % get_rrd_name(cp, plot),
-            "DEF:free=%s:free:AVERAGE" % get_rrd_name(cp, plot),
+            "DEF:total=%s:total:AVERAGE" % path,
+            "DEF:free=%s:free:AVERAGE" % path,
             "LINE1:total#0000FF:Total",
             "LINE2:free#00FF00:Free",
             "COMMENT:%s" % cp.get("jobview", "site_name"),
@@ -117,8 +125,6 @@ def graph_rrd(cp, plot, interval):
             "GPRINT:free:AVERAGE:%-6.0lf",
             "GPRINT:free:LAST:%-6.0lf\\n",
             )
-
-    os.unlink(path)
 
     return os.fdopen(fd).read()
 

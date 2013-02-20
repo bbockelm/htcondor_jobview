@@ -1,5 +1,5 @@
 Name:		htcondor-jobview
-Version:	0.1
+Version:	0.2
 Release:	1%{?dist}
 Summary:	A simple monitoring page for HTCondor sites
 
@@ -38,16 +38,17 @@ python setup.py build
 %install
 rm -rf %{buildroot}
 python setup.py install -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
-
+mkdir -p $RPM_BUILD_ROOT/var/lib/jobview
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 
 %files -f INSTALLED_FILES
+%defattr(-,root,root)
 %config(noreplace) %_sysconfdir/jobview.conf
 %config(noreplace) %_sysconfdir/httpd/conf.d/htcondor-jobview.conf
-%defattr(-,root,root)
+%attr(0755,apache,apache) %dir /var/lib/jobview
 
 
 %changelog

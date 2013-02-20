@@ -1,0 +1,26 @@
+#!/usr/bin/python
+
+import os
+import sys
+import optparse
+import ConfigParser
+
+from htcondor_jobview.jobview_rrd import update_rrd
+
+def main():
+    parser = optparse.OptionParser()
+    parser.add_option("-c", "--config", help="Config file to use", default="/etc/jobview.conf", dest="config")
+    opts, _ = parser.parse_args()
+
+    if not os.path.exists(opts.config):
+        parser.print_help()
+        print "\nConfiguration file %s does not exist." % opts.config
+        sys.exit(1)
+
+    cp = ConfigParser.ConfigParser()
+    cp.read(opts.config)
+    update_rrd(cp)
+
+if __name__ == '__main__':
+    main()
+

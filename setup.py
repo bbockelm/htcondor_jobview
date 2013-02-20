@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='htcondor-jobview',
-      version='0.1',
+      version='0.2',
       description='Simple monitoring page for HTCondor',
       author='Brian Bockelman',
       author_email='bbockelm@cse.unl.edu',
@@ -13,7 +13,9 @@ setup(name='htcondor-jobview',
       data_files=[('/etc', ['packaging/jobview.conf']),
                   ('/var/www/wsgi-scripts', ['packaging/htcondor-jobview.wsgi']),
                   ('/usr/share/htcondor-jobview/templates', ['templates/index.html']),
-                  ('/etc/httpd/conf.d/', ['htcondor-jobview.conf']),
+                  ('/etc/httpd/conf.d/', ['packaging/htcondor-jobview.conf']),
+                  ('/etc/cron.d/', ['packaging/jobview.cron'])
                  ],
+      scripts=["src/jobview-update"]
      )
 

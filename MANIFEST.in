@@ -1,3 +1,5 @@
 include packaging/jobview.conf
+include packaging/htcondor-jobview.conf
 include packaging/htcondor-jobview.wsgi
+include packaging/jobview.cron
 include templates/index.html

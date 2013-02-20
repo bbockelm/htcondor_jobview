@@ -26,6 +26,12 @@ def status_for_jobs(cp):
             'Name': starter['Name']}
     return job_corr
 
+def fix_dn(dn):
+    parts = dn.split("/")
+    while parts[-1] == "CN=limited proxy" or parts[-1] == "CN=proxy":
+        parts.pop()
+    return "/".join(parts)
+
 def summarize_jobs(cp):
     jobs = []
     group_default_stats = {'jobs': 0, 'running': 0, 'pending': 0, 'held': 0, 'cpu_eff': 0, 'low_eff': 0, 'cpu': 0, 'wall': 0}
@@ -75,6 +81,7 @@ def summarize_jobs(cp):
             if 'X509UserProxySubject' in job: dn = job['X509UserProxySubject']
             fqan = '<unknown>'
             if 'x509UserProxyFirstFQAN' in job: fqan = job['x509UserProxyFirstFQAN']
+            dn = fix_dn(dn)
 
             user_group = str([user_name , agroup_name, dn, fqan])
             user = user_tables.setdefault(user_group, dict(group_default_stats))
