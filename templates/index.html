@@ -17,13 +17,23 @@
 
         google.load('visualization', '1', {packages:['table', 'corechart']});
         $(document).ready(function() {
-        // First, get the jobs
-        $.get('jobs', gotjobs);
-
-        // Next get the cluster information
-        $.get('cluster', gotcluster);
+            load_data();
+            setInterval(load_data, 300000);
 
         });
+        var unique_image_id = new Date().getTime();
+        
+        function load_data() {
+            // First, get the jobs
+            $.get('jobs', gotjobs);
+
+            // Next get the cluster information
+            $.get('cluster', gotcluster);
+            
+            // Set the image unique id
+            unique_image_id = new Date().getTime();
+            
+        }
 
         var cluster_stats = new Array();
         function gotcluster(data) {
@@ -154,7 +164,7 @@
         }
 
         function ChangeImg(id, new_source) {
-            $("#" + id).attr('src', new_source);
+            $("#" + id).attr('src', new_source + '?' + unique_image_id);
         }
 
         //]]>
