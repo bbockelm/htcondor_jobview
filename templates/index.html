@@ -34,7 +34,7 @@
             
             
         }
-        
+
         function GroupData (name) {
             this.name = name;
             this.jobs = 0;
@@ -45,7 +45,7 @@
             this.low_eff = 0;
 
         }
-        
+
         function gotjobs(data){
         // data is a json object
         var group_data = new Array();
@@ -78,7 +78,7 @@
             group.held += user.held;
             group.low_eff += user.low_eff;
         }
-        
+
         var table = new google.visualization.Table(document.getElementById('users_table'));
         table.draw(table_data, {sortColumn: 3, sortAscending: false});
 
@@ -90,7 +90,7 @@
         group_table_data.addColumn('number', 'Idle');
         group_table_data.addColumn('number', 'Held');
         group_table_data.addColumn('number', '<10% eff');
-        
+
         for (group_name in group_data) {
             group = group_data[group_name];
             group_table_data.addRow([group.name, group.jobs, group.running, group.idle, group.held, group.low_eff])
@@ -153,6 +153,9 @@
             
         }
 
+        function ChangeImg(id, new_source) {
+            $("#" + id).attr('src', new_source);
+        }
 
         //]]>
         </script>
@@ -194,16 +197,42 @@
                     </div>
                 </div>
                 <div class="span6">
-                    <div id="group_chart_div"></div>
+                    <div class="row-fluid">
+                        <div id="cluster_graph_div">
+                            <div class="row_fluid">
+                                <img id="cluster_graph" src="condor/cluster_graph/hourly" />
+                            </div>
+                            <div class="row-fluid">
+                                <div class="btn-group" data-toggle="buttons-radio">
+                                    <button type="button" onclick="ChangeImg('cluster_graph', 'condor/cluster_graph/hourly')" class="btn">Hourly</button> <button type="button" onclick="ChangeImg('cluster_graph', 'condor/cluster_graph/daily')" class="btn">Daily</button> <button type="button" onclick="ChangeImg('cluster_graph', 'condor/cluster_graph/weekly')" class="btn">Weekly</button> <button type="button" onclick="ChangeImg('cluster_graph', 'condor/cluster_graph/monthly')" class="btn">Monthly</button> <button type="button" onclick="ChangeImg('cluster_graph', 'condor/cluster_graph/yearly')" class="btn">Yearly</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div id="jobs_graph_div">
+                            <div class="row_fluid">
+                                <img id="jobs_graph" src="condor/jobs_graph/hourly" />
+                            </div>
+                            <div class="row_fluid">
+                                <div class="btn-group" data-toggle="buttons-radio">
+                                    <button type="button" onclick="ChangeImg('jobs_graph', 'condor/cluster_graph/hourly')" class="btn">Hourly</button> <button type="button" onclick="ChangeImg('jobs_graph', 'condor/cluster_graph/daily')" class="btn">Daily</button> <button type="button" onclick="ChangeImg('jobs_graph', 'condor/cluster_graph/weekly')" class="btn">Weekly</button> <button type="button" onclick="ChangeImg('jobs_graph', 'condor/cluster_graph/monthly')" class="btn">Monthly</button> <button type="button" onclick="ChangeImg('jobs_graph', 'condor/cluster_graph/yearly')" class="btn">Yearly</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div id="group_chart_div"></div>
+                    </div>
                 </div>
             </div>
-            <div class="row-fluid">
-                <div id="users" class="span12">
-                    <h2>
-                        Users
-                    </h2>
-                    <div id="users_table"></div>
-                </div>
+        </div>
+        <div class="row-fluid">
+            <div id="users" class="span12">
+                <h2>
+                    Users
+                </h2>
+                <div id="users_table"></div>
             </div>
         </div><!-- container -->
     </body>
