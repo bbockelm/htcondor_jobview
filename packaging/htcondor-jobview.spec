@@ -21,6 +21,7 @@ BuildRequires:	python-genshi
 Requires:	python-genshi
 Requires:	mod_wsgi
 Requires:	httpd
+Requires:       rrdtool-python
 
 %description
 %{summary}
