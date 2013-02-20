@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='htcondor-jobview',
-      version='0.2',
+      version='0.3',
       description='Simple monitoring page for HTCondor',
       author='Brian Bockelman',
       author_email='bbockelm@cse.unl.edu',
