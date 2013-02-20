@@ -63,7 +63,7 @@
 
         for (user_key in data.user) {
             user = data.user[user_key];
-            table_data.addRow([ user.Owner, user.AccountingGroup, user.jobs, user.running, user.pending, user.held, (Math.round(user.cpu_eff*10000)/10000)*100, user.X509UserProxySubject ]);
+            table_data.addRow([ user.Owner, user.AccountingGroup, user.jobs, user.running, user.pending, user.held, parseFloat((user.cpu_eff*100).toFixed(2)), user.X509UserProxySubject ]);
             
             // Now calculate the per group data
             if (group_data.indexOf(user.AccountingGroup) == -1) {
@@ -102,7 +102,7 @@
         group_graph_data.addColumn('number', 'Running Jobs');
 
         for (accounting_group in group_data) {
-            group_graph_data.addRow([ accounting_group, group_data[accounting_group] ]);
+            group_graph_data.addRow([ accounting_group, group_data[accounting_group].running ]);
         }
         var options = {
             title: "Running jobs by Group",
