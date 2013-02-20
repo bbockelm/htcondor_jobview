@@ -72,7 +72,7 @@
             group = group_data[user.AccountingGroup];
             group.jobs += user.jobs;
             group.running += user.running;
-            group.pending += user.pending;
+            group.idle += user.pending;
             group.held += user.held;
             group.low_eff += user.low_eff;
         }
@@ -91,10 +91,10 @@
         
         for (group_name in group_data) {
             group = group_data[group_name];
-            group_table_data.addCell([group.name, group.jobs, group.running, group.pending, group.held, group.low_eff])
+            group_table_data.addRow([group.name, group.jobs, group.running, group.idle, group.held, group.low_eff])
         }
         var group_table = new google.visualization.Table(document.getElementById('groups_table'));
-        table.draw(group_table_data, {sortColumn: 2, sortAscending: false});
+        group_table.draw(group_table_data, {sortColumn: 2, sortAscending: false});
 
         // Now draw the graph
         var group_graph_data = new google.visualization.DataTable();
