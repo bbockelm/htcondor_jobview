@@ -13,6 +13,7 @@ from htcondor_jobview.jobview_app import application
 httpd = make_server('', 8000, application)
 
 httpd.base_environ['jobview.config'] = 'tests/unl.conf'
+httpd.base_environ['jobview.templates'] = 'templates'
 
 print "Serving on port 8000..."
 
