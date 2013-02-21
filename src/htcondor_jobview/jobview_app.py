@@ -87,6 +87,60 @@ def cluster_graph(environ, start_response):
     return [ jobview_rrd.graph_rrd(cp, "cluster", interval) ]
 
 
+schedd_jobs_graph_re = re.compile(r'^/+schedd_jobs_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ ])?/?$')
+def schedd_jobs_graph(environ, start_response):
+    status = '200 OK'
+    headers = [('Content-type', 'image/png'),
+               ('Cache-Control', 'max-age=60, public')]
+    start_response(status, headers)
+
+    path = environ.get('PATH_INFO', '')
+    m = schedd_jobs_graph_re.match(path)
+    interval = "daily"
+    if m.groups()[0]: interval=m.groups()[0]
+
+    if m.groups()[1]:
+        return [ jobview_rrd.graph_rrd(cp, "schedd_rates", interval, m.groups()[1]) ]
+    else:
+        return [ jobview_rrd.graph_rrd(cp, "schedd_rates", interval) ]
+
+
+shadow_graph_re = re.compile(r'^/+shadow_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ ])?/?$')
+def shadow_graph(environ, start_response):
+    status = '200 OK'
+    headers = [('Content-type', 'image/png'),
+               ('Cache-Control', 'max-age=60, public')]
+    start_response(status, headers)
+
+    path = environ.get('PATH_INFO', '')
+    m = shadow_graph_re.match(path)
+    interval = "daily"
+    if m.groups()[0]: interval=m.groups()[0]
+
+    if m.groups()[1]:
+        return [ jobview_rrd.graph_rrd(cp, "schedd_shadows", interval, m.groups()[1]) ]
+    else:
+        return [ jobview_rrd.graph_rrd(cp, "schedd_shadows", interval) ]
+
+
+schedd_io_graph_re = re.compile(r'^/+schedd_io_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ ])?/?$')
+def schedd_io_graph(environ, start_response):
+    status = '200 OK'
+    headers = [('Content-type', 'image/png'),
+               ('Cache-Control', 'max-age=60, public')]
+    start_response(status, headers)
+
+    path = environ.get('PATH_INFO', '')
+    m = schedd_io_graph_re.match(path)
+    interval = "daily"
+    if m.groups()[0]: interval=m.groups()[0]
+
+    if m.groups()[1]:
+        return [ jobview_rrd.graph_rrd(cp, "schedd_io", interval, m.groups()[1]) ]
+    else:
+        return [ jobview_rrd.graph_rrd(cp, "schedd_io", interval) ]
+
+
 def index(environ, start_response):
     status = '200 OK' # HTTP Status
     headers = [('Content-type', 'text/html'),
@@ -116,6 +170,9 @@ urls = [
     (re.compile(r'^cluster/?$'), cluster),
     (re.compile(r'^jobs_graph/?'), jobs_graph),
     (re.compile(r'^cluster_graph/?'), cluster_graph),
+    (re.compile(r'^schedd_jobs_graph/?'), schedd_jobs_graph),
+    (re.compile(r'^schedd_io_graph/?'), schedd_io_graph),
+    (re.compile(r'^shadow_graph/?'), shadow_graph),
 ]
 
 def application(environ, start_response):

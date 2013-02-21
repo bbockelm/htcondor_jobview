@@ -261,7 +261,69 @@
                         </h2>
                         <div id="users_table"></div>
                     </div>
-                </div><!-- container -->
+                </div>
+                <hr />
+                <div class="row-fluid">
+                    <div class="span6">
+                        <div class="row-fluid">
+                            <div id="schedd_io_graph_div">
+                                <div class="row_fluid">
+                                    <img id="schedd_io_graph" src="schedd_io_graph/daily" />
+                                </div>
+                                <div class="row_fluid" style="padding-top: 5px;">
+                                    <div class="span8 offset2">
+                                        <div class="btn-group" data-toggle="buttons-radio">
+                                            <button type="button" onclick="ChangeImg('schedd_io_graph', 'schedd_io_graph/hourly')" class="btn">Hourly</button>
+                                            <button type="button" onclick="ChangeImg('schedd_io_graph', 'schedd_io_graph/daily')" class="btn active">Daily</button>
+                                            <button type="button" onclick="ChangeImg('schedd_io_graph', 'schedd_io_graph/weekly')" class="btn">Weekly</button>
+                                            <button type="button" onclick="ChangeImg('schedd_io_graph', 'schedd_io_graph/monthly')" class="btn">Monthly</button>
+                                            <button type="button" onclick="ChangeImg('schedd_io_graph', 'schedd_io_graph/yearly')" class="btn">Yearly</button>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row-fluid">
+                            <div id="shadow_graph_div">
+                                <div class="row_fluid">
+                                    <img id="shadow_graph" src="shadow_graph/daily" />
+                                </div>
+                                <div class="row_fluid" style="padding-top: 5px;">
+                                    <div class="span8 offset2">
+                                        <div class="btn-group" data-toggle="buttons-radio">
+                                            <button type="button" onclick="ChangeImg('shadow_graph', 'shadow_graph/hourly')" class="btn">Hourly</button>
+                                            <button type="button" onclick="ChangeImg('shadow_graph', 'shadow_graph/daily')" class="btn active">Daily</button>
+                                            <button type="button" onclick="ChangeImg('shadow_graph', 'shadow_graph/weekly')" class="btn">Weekly</button>
+                                            <button type="button" onclick="ChangeImg('shadow_graph', 'shadow_graph/monthly')" class="btn">Monthly</button>
+                                            <button type="button" onclick="ChangeImg('shadow_graph', 'shadow_graph/yearly')" class="btn">Yearly</button>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span6">
+                        <div class="row-fluid">
+                            <div id="schedd_jobs_graph_div">
+                                <div class="row_fluid">
+                                    <img id="schedd_jobs_graph" src="schedd_jobs_graph/daily" />
+                                </div>
+                                <div class="row_fluid" style="padding-top: 5px;">
+                                    <div class="span8 offset2">
+                                        <div class="btn-group" data-toggle="buttons-radio">
+                                            <button type="button" onclick="ChangeImg('schedd_jobs_graph', 'schedd_jobs_graph/hourly')" class="btn">Hourly</button>
+                                            <button type="button" onclick="ChangeImg('schedd_jobs_graph', 'schedd_jobs_graph/daily')" class="btn active">Daily</button>
+                                            <button type="button" onclick="ChangeImg('schedd_jobs_graph', 'schedd_jobs_graph/weekly')" class="btn">Weekly</button>
+                                            <button type="button" onclick="ChangeImg('schedd_jobs_graph', 'schedd_jobs_graph/monthly')" class="btn">Monthly</button>
+                                            <button type="button" onclick="ChangeImg('schedd_jobs_graph', 'schedd_jobs_graph/yearly')" class="btn">Yearly</button>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
