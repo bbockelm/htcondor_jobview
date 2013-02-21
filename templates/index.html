@@ -33,7 +33,11 @@
             // Set the image unique id
             unique_image_id = new Date().getTime();
             
+            // Set the loading button
+            $("#loading-btn").button('loading');
+            
         }
+
 
         var cluster_stats = new Array();
         function gotcluster(data) {
@@ -145,6 +149,13 @@
         cluster_stats['pending'] = data.jobs.pending;
         cluster_stats['held'] = data.jobs.held;
         drawClusterStats();
+        
+        // Reset the reload button
+        $("#loading-btn").button('reset');
+
+        // Set the last updated
+        current_date = new Date();
+        $("#updated-time").html("Last Updated: " + current_date.toLocaleString());
 
 
         }
@@ -177,6 +188,8 @@
                     <h1>
                         $site_name Job Overview
                     </h1>
+                         <div id="updated-time"></div>
+                    <button class='btn btn-info' id='loading-btn' data-loading-text='Loading...' onClick='load_data()'>Reload</button>
                 </div>
             </div>
             <div class="row-fluid">
