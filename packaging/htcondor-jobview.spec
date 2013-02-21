@@ -1,5 +1,5 @@
 Name:		htcondor-jobview
-Version:	0.3
+Version:	0.4
 Release:	1%{?dist}
 Summary:	A simple monitoring page for HTCondor sites
 
@@ -53,6 +53,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 21 2013 Brian Bockelman <bbockelm@cse.unl.edu> - 0.4-1
+- Create graphs for various schedd stats
+
 * Wed Feb 20 2013 Brian Bockelman <bbockelm@cse.unl.edu> - 0.3-1
 - Create RRD graphs.
 - Allow webpage to auto-reload.
