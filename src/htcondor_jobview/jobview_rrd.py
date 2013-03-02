@@ -45,10 +45,10 @@ def create_rrd(cp, plot, subplot = None):
             "DS:JobsHeld:DERIVE:360:0:U",
             "DS:JobsRequeue:DERIVE:360:0:U",
             "DS:JobsTimeToStart:DERIVE:360:0:U",
-            "DS:TotalIdleJobs:DERIVE:360:0:U",
+            "DS:TotalIdleJobs:GAUGE:360:0:U",
             "DS:JobsBadputTime:DERIVE:360:0:U",
             "DS:JobsExecuteTime:DERIVE:360:0:U",
-            "DS:TotalRunningJobs:DERIVE:360:0:U",
+            "DS:TotalRunningJobs:GAUGE:360:0:U",
             "DS:AvgJobQueueTime:GAUGE:360:0:U",
             "DS:AvgJobRunTime:GAUGE:360:0:U",
             "RRA:AVERAGE:0.5:1:1000",
@@ -79,7 +79,7 @@ def make_stats_list(stats):
     stats_list.append(stats['JobsSubmitted'])
     stats_list.append(stats['JobsCompleted'])
     stats_list.append(stats['ShadowsStarted'])
-    stats_list.append(stats['JobsExited'] + stats['JobsExitedAndClaimClosing'])
+    stats_list.append(stats['JobsExited'])
     stats_list.append(stats['JobsShouldHold'])
     stats_list.append(stats['JobsExitException'] + stats['JobsExecFailed'] + \
         stats['JobsShouldRequeue'] + stats['JobsKilled'] + stats['JobsNotStarted'])
@@ -259,6 +259,41 @@ def graph_rrd(cp, plot, interval, subplot = None):
             "GPRINT:completed:AVERAGE:%-2.1lf",
             "GPRINT:completed:LAST:%-2.1lf\\n",
             )
+
+    elif plot == "schedd":
+        path = get_rrd_name(cp, "schedd", subplot)
+        if not os.path.exists(path):
+            create_rrd(cp, "schedd", subplot)
+
+        rrdtool.graph(pngpath,
+            "--imgformat", "PNG",
+            "--width", "400",
+            "--start", "-1%s" % rrd_interval,
+            "--vertical-label", "Jobs / s",
+            "--lower-limit", "0",
+            "--title", "%s Job Rates" % cp.get("jobview", "site_name"),
+            "DEF:running=%s:JobsExecuteTime:AVERAGE" % path,
+            "DEF:pending=%s:JobsTimeToStart:AVERAGE" % path,
+            "DEF:badput=%s:JobsBadputTime:AVERAGE" % path,
+            "LINE1:running#0000FF:Running",
+            "LINE2:pending#00FF00:Pending",
+            "LINE3:badput#FF0000:Badput",
+            "COMMENT:\\n",
+            "COMMENT:             max  avg  cur\\n",
+            "COMMENT:Running   ",
+            "GPRINT:running:MAX:%-2.1lf",
+            "GPRINT:running:AVERAGE:%-2.1lf",
+            "GPRINT:running:LAST:%-2.1lf\\n",
+            "COMMENT:Pending   ",
+            "GPRINT:pending:MAX:%-2.1lf",
+            "GPRINT:pending:AVERAGE:%-2.1lf",
+            "GPRINT:pending:LAST:%-2.1lf\\n",
+            "COMMENT:Badput    ",
+            "GPRINT:badput:MAX:%-2.1lf",
+            "GPRINT:badput:AVERAGE:%-2.1lf",
+            "GPRINT:badput:LAST:%-2.1lf\\n",
+            )
+
 
     elif plot == "jobs":
         path = get_rrd_name(cp, plot)

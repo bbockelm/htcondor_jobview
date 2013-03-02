@@ -87,7 +87,25 @@ def cluster_graph(environ, start_response):
     return [ jobview_rrd.graph_rrd(cp, "cluster", interval) ]
 
 
-schedd_jobs_graph_re = re.compile(r'^/+schedd_jobs_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ ])?/?$')
+schedd_rates_graph_re = re.compile(r'^/+schedd_rates_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ 0-9]+)?/?$')
+def schedd_rates_graph(environ, start_response):
+    status = '200 OK'
+    headers = [('Content-type', 'image/png'),
+               ('Cache-Control', 'max-age=60, public')]
+    start_response(status, headers)
+
+    path = environ.get('PATH_INFO', '')
+    m = schedd_rates_graph_re.match(path)
+    interval = "daily"
+    if m.groups()[0]: interval=m.groups()[0]
+
+    if m.groups()[1]:
+        return [ jobview_rrd.graph_rrd(cp, "schedd_rates", interval, m.groups()[1]) ]
+    else:
+        return [ jobview_rrd.graph_rrd(cp, "schedd_rates", interval) ]
+
+
+schedd_jobs_graph_re = re.compile(r'^/+schedd_jobs_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ 0-9]+)?/?$')
 def schedd_jobs_graph(environ, start_response):
     status = '200 OK'
     headers = [('Content-type', 'image/png'),
@@ -100,12 +118,12 @@ def schedd_jobs_graph(environ, start_response):
     if m.groups()[0]: interval=m.groups()[0]
 
     if m.groups()[1]:
-        return [ jobview_rrd.graph_rrd(cp, "schedd_rates", interval, m.groups()[1]) ]
+        return [ jobview_rrd.graph_rrd(cp, "schedd", interval, m.groups()[1]) ]
     else:
-        return [ jobview_rrd.graph_rrd(cp, "schedd_rates", interval) ]
+        return [ jobview_rrd.graph_rrd(cp, "schedd", interval) ]
 
 
-shadow_graph_re = re.compile(r'^/+shadow_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ ])?/?$')
+shadow_graph_re = re.compile(r'^/+shadow_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ 0-9]+)?/?$')
 def shadow_graph(environ, start_response):
     status = '200 OK'
     headers = [('Content-type', 'image/png'),
@@ -123,7 +141,7 @@ def shadow_graph(environ, start_response):
         return [ jobview_rrd.graph_rrd(cp, "schedd_shadows", interval) ]
 
 
-schedd_io_graph_re = re.compile(r'^/+schedd_io_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ ])?/?$')
+schedd_io_graph_re = re.compile(r'^/+schedd_io_graph/?([a-zA-Z]+)?/?([a-zA-Z.\-_@ 0-9]+)?/?$')
 def schedd_io_graph(environ, start_response):
     status = '200 OK'
     headers = [('Content-type', 'image/png'),
@@ -171,6 +189,7 @@ urls = [
     (re.compile(r'^jobs_graph/?'), jobs_graph),
     (re.compile(r'^cluster_graph/?'), cluster_graph),
     (re.compile(r'^schedd_jobs_graph/?'), schedd_jobs_graph),
+    (re.compile(r'^schedd_rates_graph/?'), schedd_rates_graph),
     (re.compile(r'^schedd_io_graph/?'), schedd_io_graph),
     (re.compile(r'^shadow_graph/?'), shadow_graph),
 ]
