@@ -67,7 +67,7 @@ def summarize_jobs(cp):
 
             agroup_name = '<none>'
             if 'AccountingGroup' in job:
-                agroup_name = job['AccountingGroup']
+                agroup_name = str(job['AccountingGroup'])
                 agroup_name = agroup_name.split(".")
                 agroup_name = ".".join(agroup_name[:-1])
             agroup = group_tables.setdefault(agroup_name, dict(group_default_stats))
