@@ -1,5 +1,5 @@
 Name:		htcondor-jobview
-Version:	0.4
+Version:	0.5
 Release:	1%{?dist}
 Summary:	A simple monitoring page for HTCondor sites
 
@@ -14,7 +14,10 @@ BuildArch:	noarch
 # python setup.py sdist
 # cp dist/htcondor-jobview-*.tar.gz ~/rpmbuild/SOURCES
 #
-Source0:	%{name}-%{version}.tar.gz
+
+# Github source0
+# https://github.com/bbockelm/htcondor_jobview/archive/v0.4.tar.gz
+Source0:	https://github.com/bbockelm/htcondor_jobview/archive/v%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 BuildRequires:	python-genshi
@@ -53,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 19 2013 Derek Weitzel <dweitzel@cse.unl.edu> - 0.5-1
+- Updating to v0.5
+
 * Wed Feb 21 2013 Brian Bockelman <bbockelm@cse.unl.edu> - 0.4-1
 - Create graphs for various schedd stats
 
